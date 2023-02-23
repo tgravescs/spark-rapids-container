@@ -316,8 +316,8 @@ EOF
 
 start_ssh
 
-# config file targetting 2xlarge node sizes on AWS
-sudo cp /opt/spark-rapids/00-custom-spark-driver-defaults-alluxio-2xlarge.conf /databricks/driver/conf/
+# config file targetting 4xlarge node sizes on AWS
+sudo cp /opt/spark-rapids/confs/00-custom-spark-driver-defaults-alluxio-4xlarge.conf /databricks/driver/conf/
 # set gpu.amount to allow all cpu cores to run tasks
 sudo echo "sed -i 's/spark.task.resource.gpu.amount 1/spark.task.resource.gpu.amount 0.001/g' /tmp/custom-spark.conf" >> /databricks/spark/scripts/setup_driver.sh
 

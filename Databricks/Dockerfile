@@ -100,14 +100,18 @@ ARG JAR_FILE=rapids-4-spark_2.12-22.12.0.jar
 ARG JAR_URL=https://repo1.maven.org/maven2/com/nvidia/rapids-4-spark_2.12/22.12.0/${JAR_FILE}
 ARG INIT_SCRIPT=init.sh
 COPY ${DRIVER_CONF_FILE} /databricks/driver/conf/00-custom-spark-driver-defaults.conf
+ADD ${DRIVER_CONF_FILE} /opt/spark-rapids/confs/${DRIVER_CONF_FILE}
+ADD 00-custom-spark-driver-defaults-4xlarge.conf /opt/spark-rapids/confs/00-custom-spark-driver-defaults-4xlarge.conf
+ADD 00-custom-spark-driver-defaults-alluxio-2xlarge.conf /opt/spark-rapids/confs/00-custom-spark-driver-defaults-alluxio-2xlarge.conf
+ADD 00-custom-spark-driver-defaults-alluxio-4xlarge.conf /opt/spark-rapids/confs/00-custom-spark-driver-defaults-alluxio-4xlarge.conf
 
 WORKDIR /databricks/jars
 ADD $JAR_URL /databricks/jars/${JAR_FILE}
 
 ADD $INIT_SCRIPT /opt/spark-rapids/init.sh
 ADD init-4xlarge.sh /opt/spark-rapids/init-4xlarge.sh
-ADD init-alluxio-2xlarge.conf /opt/spark-rapids/init-alluxio-2xlarge.conf
-ADD init-alluxio-4xlarge.conf /opt/spark-rapids/init-alluxio-4xlarge.conf
+ADD init-alluxio-2xlarge.sh /opt/spark-rapids/init-alluxio-2xlarge.sh
+ADD init-alluxio-4xlarge.sh /opt/spark-rapids/init-alluxio-4xlarge.sh
 RUN chmod 755 /opt/spark-rapids/init.sh
 RUN chmod 755 /opt/spark-rapids/init-4xlarge.sh
 RUN chmod 755 /opt/spark-rapids/init-alluxio-2xlarge.sh
