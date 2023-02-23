@@ -17,7 +17,7 @@ set -ex
 
 REPO_BASE=${REPO_BASE:-"nvidia"}
 TAG_NAME=${TAG_NAME:-"rapids-4-spark-databricks"}
-VERSION=${VERSION:-"22.10.0"}
+VERSION=${VERSION:-"23.04.0-20230215"}
 TAG_VERSION=${TAG_VERSION:-$VERSION}
 CUDA_VERSION=${CUDA_VERSION:-"11.5.1"}
 CUDA_PKG_VERSION=${CUDA_VERSION%.*}
@@ -28,7 +28,7 @@ BASE_JAR_URL=${BASE_JAR_URL:-"https://repo1.maven.org/maven2/com/nvidia/rapids-4
 
 JAR_VERSION=${JAR_VERSION:-$VERSION}
 JAR_FILE=${JAR_FILE:-"rapids-4-spark_2.12-${JAR_VERSION}-cuda11.jar"}
-JAR_URL=${JAR_URL:-"${BASE_JAR_URL}/${VERSION}/${JAR_FILE}"}
+JAR_URL="https://urm.nvidia.com/artifactory/sw-spark-maven/com/nvidia/rapids-4-spark_2.12/23.04.0-SNAPSHOT/rapids-4-spark_2.12-23.04.0-20230215.173120-15-cuda11.jar"
 
 DRIVER_CONF_FILE=${DRIVER_CONF_FILE:-"00-custom-spark-driver-defaults.conf"}
 DATABRICKS_RUNTIME_VERSION=${DATABRICKS_RUNTIME_VERSION:-"10.4"}

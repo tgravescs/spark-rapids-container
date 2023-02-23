@@ -48,7 +48,7 @@ RUN set -ex && \
                openjdk-8-jdk-headless iproute2 bash sudo coreutils procps gpg fuse openssh-server && \
     apt-get -y install cuda-cudart-dev-${CUDA_PKG_VERSION} cuda-cupti-dev-${CUDA_PKG_VERSION} cuda-driver-dev-${CUDA_PKG_VERSION} \
                cuda-nvcc-${CUDA_PKG_VERSION} cuda-thrust-${CUDA_PKG_VERSION} cuda-toolkit-${CUDA_PKG_VERSION}-config-common cuda-toolkit-11-config-common \
-               cuda-toolkit-config-common python3.8-dev libpq-dev libcairo2-dev build-essential unattended-upgrades cmake ccache \
+               cuda-toolkit-config-common python3.8-dev libpq-dev libpq5 libcairo2-dev build-essential unattended-upgrades cmake ccache \
                openmpi-bin linux-headers-5.4.0-117 linux-headers-5.4.0-117-generic linux-headers-generic libopenmpi-dev unixodbc-dev \
                sysstat ssh tmux supervisor && \
     apt-get install -y less vim && \
@@ -64,7 +64,7 @@ RUN set -ex && \
         && /databricks/python3/bin/pip cache purge && \
     apt-get -y purge --autoremove software-properties-common cuda-cudart-dev-${CUDA_PKG_VERSION} cuda-cupti-dev-${CUDA_PKG_VERSION} \
                cuda-driver-dev-${CUDA_PKG_VERSION} cuda-nvcc-${CUDA_PKG_VERSION} cuda-thrust-${CUDA_PKG_VERSION} \
-               python3.8-dev libpq-dev libcairo2-dev build-essential unattended-upgrades cmake ccache openmpi-bin \
+               python3.8-dev libcairo2-dev build-essential unattended-upgrades cmake ccache openmpi-bin \
                linux-headers-5.4.0-117 linux-headers-5.4.0-117-generic linux-headers-generic libopenmpi-dev unixodbc-dev \
                virtualenv python3-virtualenv && \
     apt-get clean && \
@@ -105,7 +105,13 @@ WORKDIR /databricks/jars
 ADD $JAR_URL /databricks/jars/${JAR_FILE}
 
 ADD $INIT_SCRIPT /opt/spark-rapids/init.sh
+ADD init-4xlarge.sh /opt/spark-rapids/init-4xlarge.sh
+ADD init-alluxio-2xlarge.conf /opt/spark-rapids/init-alluxio-2xlarge.conf
+ADD init-alluxio-4xlarge.conf /opt/spark-rapids/init-alluxio-4xlarge.conf
 RUN chmod 755 /opt/spark-rapids/init.sh
+RUN chmod 755 /opt/spark-rapids/init-4xlarge.sh
+RUN chmod 755 /opt/spark-rapids/init-alluxio-2xlarge.sh
+RUN chmod 755 /opt/spark-rapids/init-alluxio-4xlarge.sh
 
 WORKDIR /databricks
 
