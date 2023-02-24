@@ -321,6 +321,8 @@ sudo cp /opt/spark-rapids/confs/00-custom-spark-driver-defaults-alluxio-2xlarge.
 # set gpu.amount to allow all cpu cores to run tasks
 sudo echo "sed -i 's/spark.task.resource.gpu.amount 1/spark.task.resource.gpu.amount 0.001/g' /tmp/custom-spark.conf" >> /databricks/spark/scripts/setup_driver.sh
 
+sudo echo "export ALLUXIO_HOME=/opt/alluxio-2.9.0" >> /databricks/spark/conf/spark-env.sh
+
 if [[ "$ENABLE_ALLUXIO" = "1" ]]; then
   config_alluxio
   # start supervisord, and supervisord starts alluxio
